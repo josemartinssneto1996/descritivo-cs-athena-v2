@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Success — Athena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #090909;
+      --ink-soft:   #111111;
+      --lavender:   #E9D8FE;
+      --lavender-2: #D4B8FC;
+      --lavender-3: #7C4DCA;
+      --white:      #FAFAFA;
+      --grey-1:     #F2F0F7;
+      --grey-2:     #E0DCEB;
+      --grey-3:     #B0A8C4;
+      --grey-4:     #6B6480;
+      --positive:   #2D9E6B;
+      --danger:     #C8382B;
+      --amber:      #C27B1A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════
+       COVER
+    ═══════════════════════════════════════ */
+    .cover {
+      background: var(--ink);
+      color: var(--white);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 64px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(233,216,254,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,77,202,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .cover-brand {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lavender);
+    }
+
+    .cover-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+      border: 1px solid #2a2a2a;
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+
+    .cover-center {
+      padding: 80px 0 40px;
+    }
+
+    .cover-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lavender-3);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cover-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--lavender-3);
+    }
+
+    .cover-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .cover-title span {
+      color: var(--lavender);
+      display: block;
+    }
+
+    .cover-quote {
+      max-width: 520px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--grey-3);
+      line-height: 1.5;
+      border-left: 2px solid var(--lavender-3);
+      padding-left: 20px;
+    }
+
+    .cover-bottom {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      border-top: 1px solid #1e1e1e;
+      padding-top: 32px;
+    }
+
+    .cover-meta-item {}
+    .cover-meta-label {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+      margin-bottom: 4px;
+    }
+    .cover-meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--grey-2);
+    }
+
+    /* ═══════════════════════════════════════
+       BODY LAYOUT
+    ═══════════════════════════════════════ */
+    .body-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 72px;
+    }
+
+    @media (max-width: 768px) {
+      .cover { padding: 40px 28px; }
+      .body-wrap { padding: 60px 24px; }
+      .cover-bottom { grid-template-columns: 1fr 1fr; gap: 20px; }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION BLOCK
+    ═══════════════════════════════════════ */
+    .section {
+      margin-bottom: 96px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .section-number {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--lavender-3);
+      min-width: 28px;
+      padding-top: 6px;
+    }
+
+    .section-title-wrap {}
+
+    .section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--grey-2);
+      margin-top: 22px;
+    }
+
+    /* ═══════════════════════════════════════
+       INTRO SECTION (Objetivo)
+    ═══════════════════════════════════════ */
+    .intro-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .intro-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .intro-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--grey-4);
+    }
+
+    .intro-body strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       FRENTES — 3 cards grandes
+    ═══════════════════════════════════════ */
+    .frentes {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .frente-card {
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 4px;
+      padding: 24px 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .frente-card:first-child { border-radius: 12px 12px 4px 4px; }
+    .frente-card:last-child  { border-radius: 4px 4px 12px 12px; }
+
+    .frente-icon {
+      font-size: 20px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .frente-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--lavender);
+      margin-bottom: 4px;
+    }
+
+    .frente-body {
+      font-size: 13px;
+      color: #a0a0a0;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       CAMADAS — 3 colunas horizontais
+    ═══════════════════════════════════════ */
+    .camadas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .camadas-grid { grid-template-columns: 1fr; }
+    }
+
+    .camada-card {
+      padding: 32px 28px;
+      background: var(--grey-1);
+      border-radius: 4px;
+    }
+
+    .camada-card:first-child { border-radius: 12px 4px 4px 12px; }
+    .camada-card:last-child  { border-radius: 4px 12px 12px 4px; }
+
+    .camada-num {
+      font-family: 'Raleway', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--grey-2);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .camada-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .camada-body {
+      font-size: 13px;
+      color: var(--grey-4);
+      line-height: 1.55;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSABILIDADES — sub-seções
+    ═══════════════════════════════════════ */
+    .resp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 64px;
+    }
+
+    @media (max-width: 640px) {
+      .resp-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .resp-group-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--lavender-3);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--lavender);
+    }
+
+    .resp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .resp-list li {
+      font-size: 13.5px;
+      color: var(--grey-4);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .resp-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--lavender-3);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       HIGHLIGHT CALLOUT
+    ═══════════════════════════════════════ */
+    .callout {
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+
+    .callout-lavender {
+      background: var(--grey-1);
+      border-left: 4px solid var(--lavender-3);
+    }
+
+    .callout-ink {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .callout p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .callout-lavender p { color: var(--ink); }
+    .callout-ink p { color: var(--lavender); }
+
+    /* ═══════════════════════════════════════
+       LIMITES — negativo
+    ═══════════════════════════════════════ */
+    .limites-wrap {
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 640px) {
+      .limites-wrap { grid-template-columns: 1fr; padding: 32px; }
+    }
+
+    .limites-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .limites-label.pode { color: var(--positive); }
+    .limites-label.nao  { color: #eb5757; }
+
+    .limites-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .limites-list li {
+      font-size: 13px;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .limites-list.pode li { color: #b0f0d0; }
+    .limites-list.nao  li { color: #f0b0b0; }
+
+    .limites-list li::before {
+      position: absolute; left: 0;
+      font-size: 14px; line-height: 1.4;
+    }
+
+    .limites-list.pode li::before { content: '↗'; color: #2D9E6B; }
+    .limites-list.nao  li::before { content: '✕'; color: #C8382B; font-size: 12px; top: 1px; }
+
+    /* ═══════════════════════════════════════
+       TABELA — áreas
+    ═══════════════════════════════════════ */
+    .table-section {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      border-bottom: 2px solid var(--ink);
+    }
+
+    th {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+      padding: 12px 16px 12px 0;
+      text-align: left;
+    }
+
+    th:first-child { min-width: 180px; }
+
+    td {
+      padding: 16px 16px 16px 0;
+      font-size: 13.5px;
+      color: var(--grey-4);
+      vertical-align: top;
+      border-bottom: 1px solid var(--grey-2);
+      line-height: 1.5;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* ═══════════════════════════════════════
+       AUTONOMIA — 3 blocos com pill
+    ═══════════════════════════════════════ */
+    .autonomia-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .autonomia-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 1fr;
+      gap: 24px;
+      background: var(--grey-1);
+      border-radius: 4px;
+      padding: 24px 28px;
+      align-items: start;
+    }
+
+    .autonomia-row:first-child { border-radius: 12px 12px 4px 4px; }
+    .autonomia-row:last-child  { border-radius: 4px 4px 12px 12px; }
+
+    .autonomia-row.green { border-left: 4px solid var(--positive); }
+    .autonomia-row.amber { border-left: 4px solid var(--amber); }
+    .autonomia-row.red   { border-left: 4px solid var(--danger); }
+
+    @media (max-width: 640px) {
+      .autonomia-row { grid-template-columns: 1fr; gap: 12px; }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+
+    .pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+
+    .pill.green { background: rgba(45,158,107,.1); color: var(--positive); }
+    .pill.amber { background: rgba(194,123,26,.1); color: var(--amber); }
+    .pill.red   { background: rgba(200,56,43,.1);  color: var(--danger); }
+
+    .pill.green .pill-dot { background: var(--positive); }
+    .pill.amber .pill-dot { background: var(--amber); }
+    .pill.red   .pill-dot { background: var(--danger); }
+
+    .autonomia-col-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+      margin-bottom: 6px;
+    }
+
+    .autonomia-col-text {
+      font-size: 13px;
+      color: var(--grey-4);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       INDICADORES — dois grupos
+    ═══════════════════════════════════════ */
+    .indicadores-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    @media (max-width: 640px) {
+      .indicadores-grid { grid-template-columns: 1fr; }
+    }
+
+    .ind-group-head {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .ind-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--grey-2);
+    }
+
+    .ind-item:last-child { border-bottom: none; }
+
+    .ind-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .ind-desc {
+      font-size: 12px;
+      color: var(--grey-4);
+    }
+
+    /* ═══════════════════════════════════════
+       COMPORTAMENTOS — tabela estilizada
+    ═══════════════════════════════════════ */
+    .comportamentos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .comportamentos-grid { grid-template-columns: 1fr; }
+    }
+
+    .comp-card {
+      background: var(--grey-1);
+      padding: 20px 24px;
+      border-radius: 4px;
+    }
+
+    .comp-card:nth-child(1) { border-radius: 12px 4px 4px 4px; }
+    .comp-card:nth-child(2) { border-radius: 4px 12px 4px 4px; }
+    .comp-card:last-child   { border-radius: 4px 4px 12px 12px; }
+    .comp-card:nth-last-child(2) { border-radius: 4px 4px 4px 12px; }
+
+    .comp-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .comp-body {
+      font-size: 12.5px;
+      color: var(--grey-4);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       DESEMPENHO — dois blocos
+    ═══════════════════════════════════════ */
+    .desempenho-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .desempenho-grid { grid-template-columns: 1fr; }
+    }
+
+    .desemp-card {
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .desemp-card.positivo {
+      background: #f0faf5;
+      border: 1px solid rgba(45,158,107,.2);
+    }
+
+    .desemp-card.negativo {
+      background: #fdf2f0;
+      border: 1px solid rgba(200,56,43,.15);
+    }
+
+    .desemp-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .desemp-card.positivo .desemp-label { color: var(--positive); }
+    .desemp-card.negativo .desemp-label { color: var(--danger); }
+
+    .desemp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .desemp-list li {
+      font-size: 13px;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .desemp-card.positivo .desemp-list li { color: #1a5c3a; }
+    .desemp-card.negativo .desemp-list li { color: #7a1e15; }
+
+    .desemp-card.positivo .desemp-list li::before { content: '✓'; position: absolute; left: 0; color: var(--positive); font-weight: 700; }
+    .desemp-card.negativo .desemp-list li::before { content: '!'; position: absolute; left: 0; color: var(--danger); font-weight: 700; font-size: 12px; }
+
+    /* ═══════════════════════════════════════
+       VALIDAÇÃO
+    ═══════════════════════════════════════ */
+    .validacao-box {
+      background: #FFFBF0;
+      border: 1px solid #F0D080;
+      border-top: 4px solid #C27B1A;
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .validacao-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .validacao-intro {
+      font-size: 13px;
+      color: #7a6520;
+      margin-bottom: 24px;
+    }
+
+    .validacao-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .validacao-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .validacao-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .validacao-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #5a4510;
+      margin-bottom: 2px;
+    }
+
+    .validacao-text span {
+      font-size: 12.5px;
+      color: #7a6520;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       CLOSING
+    ═══════════════════════════════════════ */
+    .closing {
+      background: var(--ink);
+      color: var(--white);
+      padding: 96px 72px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .closing { grid-template-columns: 1fr; gap: 48px; padding: 64px 28px; }
+    }
+
+    .closing-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lavender-3);
+      margin-bottom: 16px;
+    }
+
+    .closing-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .closing-title span { color: var(--lavender); }
+
+    .closing-quote {
+      font-family: 'Raleway', sans-serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--lavender);
+      line-height: 1.5;
+      border-left: 2px solid var(--lavender-3);
+      padding-left: 24px;
+    }
+
+    .closing-body {
+      font-size: 14px;
+      color: var(--grey-4);
+      line-height: 1.7;
+      margin-top: 20px;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      background: #050505;
+      padding: 24px 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+    }
+
+    .footer-info {
+      font-size: 11px;
+      color: #333;
+    }
+
+    /* ═══════════════════════════════════════
+       DIVIDER
+    ═══════════════════════════════════════ */
+    .divider {
+      height: 1px;
+      background: var(--grey-2);
+      margin: 64px 0;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION INTRO TEXT
+    ═══════════════════════════════════════ */
+    .section-intro {
+      font-size: 15px;
+      color: var(--grey-4);
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .section-intro strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="cover-brand">Athena Growth Marketing</div>
+    <div class="cover-tag">Uso Interno · v2.0 · 2026</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-eyebrow">Descritivo de Cargo</div>
+    <h1 class="cover-title">
+      Customer
+      <span>Success</span>
+    </h1>
+    <p class="cover-quote">
+      "Você não precisa executar tudo.<br>
+      Mas precisa garantir que nada fique solto."
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Cargo</div>
+      <div class="cover-meta-value">CS / Analista de CS</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Área</div>
+      <div class="cover-meta-value">Operação de Clientes</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Reporta-se a</div>
+      <div class="cover-meta-value">Gestor de Projetos</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Escalonamento crítico</div>
+      <div class="cover-meta-value">Gestão · Diretoria</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BODY ═══ -->
+<div class="body-wrap">
+
+  <!-- 01 · Objetivo -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Por que o cargo existe</div>
+        <h2 class="section-title">Objetivo do Cargo</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="intro-layout">
+      <div>
+        <p class="intro-body">
+          Garantir acompanhamento claro durante toda a jornada do cliente — do onboarding à retenção. A responsabilidade central é <strong>proteger a experiência do cliente</strong>, assegurar que demandas avancem com responsável definido, manter a operação informada e garantir que nenhuma solicitação se perca entre cliente e equipe interna.
+        </p>
+        <p class="intro-body" style="margin-top: 16px;">
+          O objetivo se desdobra em três frentes de atuação simultâneas:
+        </p>
+      </div>
+      <div class="frentes">
+        <div class="frente-card">
+          <div class="frente-icon">↩</div>
+          <div>
+            <div class="frente-title">Retenção</div>
+            <div class="frente-body">Identificar sinais de insatisfação antes que se tornem pedidos de cancelamento</div>
+          </div>
+        </div>
+        <div class="frente-card">
+          <div class="frente-icon">↗</div>
+          <div>
+            <div class="frente-title">Expansão</div>
+            <div class="frente-body">Localizar oportunidades de upsell, cross-sell e novos serviços na base ativa</div>
+          </div>
+        </div>
+        <div class="frente-card">
+          <div class="frente-icon">◉</div>
+          <div>
+            <div class="frente-title">Indicação</div>
+            <div class="frente-body">Converter clientes satisfeitos em promotores — canal com menor custo e maior conversão</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Papel -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Posicionamento na operação</div>
+        <h2 class="section-title">O Papel do CS na Athena</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="section-intro">
+      O CS é o <strong>ponto de conexão entre cliente, operação e gestão</strong> — não o executor técnico das entregas. Sua atuação protege quatro dimensões ao mesmo tempo: experiência do cliente, continuidade das demandas, clareza da operação e visibilidade da gestão.
+    </p>
+
+    <div class="camadas-grid">
+      <div class="camada-card">
+        <div class="camada-num">01</div>
+        <div class="camada-title">Operacional</div>
+        <div class="camada-body">Responder bem, registrar tudo e garantir o andamento das demandas</div>
+      </div>
+      <div class="camada-card">
+        <div class="camada-num">02</div>
+        <div class="camada-title">Relacional</div>
+        <div class="camada-body">Criar proximidade, construir confiança e posicionar-se como parceiro</div>
+      </div>
+      <div class="camada-card">
+        <div class="camada-num">03</div>
+        <div class="camada-title">Estratégica</div>
+        <div class="camada-body">Visualizar a jornada completa, antecipar riscos e identificar oportunidades</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · Responsabilidades -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div class="section-title-wrap">
+        <div class="section-label">O que cabe ao cargo</div>
+        <h2 class="section-title">Responsabilidades</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="resp-grid">
+      <div>
+        <div class="resp-group-title">Atendimento e Comunicação</div>
+        <ul class="resp-list">
+          <li>Ser o ponto principal de contato com clientes da carteira</li>
+          <li>Conduzir comunicações por grupo, mensagem direta, reunião e ligação</li>
+          <li>Receber, organizar e registrar solicitações dos clientes</li>
+          <li>Atualizar o cliente sobre status, próximos passos e atrasos</li>
+        </ul>
+      </div>
+      <div>
+        <div class="resp-group-title">Gestão de Demandas</div>
+        <ul class="resp-list">
+          <li>Direcionar demandas para as áreas responsáveis com contexto claro</li>
+          <li>Acompanhar o andamento até o retorno final ao cliente</li>
+          <li>Manter o ClickUp atualizado como fonte única de registro</li>
+        </ul>
+      </div>
+      <div>
+        <div class="resp-group-title">Saúde da Carteira</div>
+        <ul class="resp-list">
+          <li>Realizar acompanhamento ativo da carteira de clientes</li>
+          <li>Identificar sinais de insatisfação, risco ou baixa percepção de valor</li>
+          <li>Sinalizar riscos de churn à gestão com antecedência</li>
+          <li>Conduzir onboarding de novos clientes com o Gestor de Projetos</li>
+          <li>Realizar checkpoints estratégicos ao longo da jornada</li>
+          <li>Acompanhar coleta e tratamento de NPS</li>
+        </ul>
+      </div>
+      <div>
+        <div class="resp-group-title">Crescimento e Oportunidades</div>
+        <ul class="resp-list">
+          <li>Identificar e registrar oportunidades de expansão, indicação, review ou case</li>
+          <li>Escalar para Gestor ou Diretoria quando necessário, com contexto completo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-lavender" style="margin-top: 48px;">
+      <p>"Encaminhar não é resolver. A demanda só está adequadamente acompanhada quando existe clareza de responsável, status atualizado, próximo passo definido e comunicação ao cliente."</p>
+    </div>
+  </section>
+
+  <!-- 04 · Limites -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Escopo e fronteiras</div>
+        <h2 class="section-title">Limites da Função</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="limites-wrap">
+      <div>
+        <div class="limites-label pode">O CS pode</div>
+        <ul class="limites-list pode">
+          <li>Acionar áreas responsáveis</li>
+          <li>Acompanhar e cobrar retorno</li>
+          <li>Organizar informações e contexto</li>
+          <li>Comunicar o cliente sobre andamento</li>
+          <li>Sinalizar riscos e gargalos à gestão</li>
+          <li>Identificar e repassar oportunidades</li>
+        </ul>
+      </div>
+      <div>
+        <div class="limites-label nao">O CS não é responsável por</div>
+        <ul class="limites-list nao">
+          <li>Executar campanhas de tráfego pago</li>
+          <li>Criar peças de design ou materiais visuais</li>
+          <li>Desenvolver ou manter páginas e landing pages</li>
+          <li>Operar tecnicamente o CRM ou automações</li>
+          <li>Tomar decisões comerciais sem validação</li>
+          <li>Prometer prazo, escopo ou preço sem alinhamento</li>
+          <li>Aprovar estratégias, exceções ou contratos</li>
+          <li>Assumir responsabilidade técnica de outra área</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Relação com Áreas -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">05</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Interfaces internas</div>
+        <h2 class="section-title">Relação com Outras Áreas</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Área</th>
+            <th>Papel do CS</th>
+            <th>Limite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gestão de Projetos</td>
+            <td>Valida decisões de prazo, prioridade, escopo ou resposta sensível</td>
+            <td>Gestor é o ponto de validação para situações além da autonomia do CS</td>
+          </tr>
+          <tr>
+            <td>Tráfego · Design · Web · CRM</td>
+            <td>Comunica contexto, organiza a demanda, acompanha e cobra retorno</td>
+            <td>Não interfere na decisão técnica; garante que o cliente receba resposta</td>
+          </tr>
+          <tr>
+            <td>Comercial</td>
+            <td>Identifica e repassa oportunidades de expansão, upsell, indicação e review</td>
+            <td>Não propõe preço, condição ou escopo sem validação</td>
+          </tr>
+          <tr>
+            <td>Financeiro</td>
+            <td>Sinaliza situações de inadimplência, pausas ou disputas financeiras</td>
+            <td>Escala para Financeiro e Gestão antes de qualquer resposta ao cliente</td>
+          </tr>
+          <tr>
+            <td>Diretoria</td>
+            <td>Organiza contexto e acompanha o encaminhamento em situações críticas</td>
+            <td>A Diretoria toma a decisão; CS não responde antes da validação</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 · Autonomia -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">06</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Tomada de decisão</div>
+        <h2 class="section-title">Autonomia e Escalonamento</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="autonomia-stack">
+      <div class="autonomia-row green">
+        <div>
+          <span class="pill green"><span class="pill-dot"></span>Autônomo</span>
+        </div>
+        <div>
+          <div class="autonomia-col-label">Quando se aplica</div>
+          <div class="autonomia-col-text">Baixo risco, sem impacto em prazo, escopo, performance ou relacionamento sensível</div>
+        </div>
+        <div>
+          <div class="autonomia-col-label">O que o CS faz</div>
+          <div class="autonomia-col-text">Responde, conduz e encaminha sem validação prévia</div>
+        </div>
+      </div>
+      <div class="autonomia-row amber">
+        <div>
+          <span class="pill amber"><span class="pill-dot"></span>Valida antes</span>
+        </div>
+        <div>
+          <div class="autonomia-col-label">Quando se aplica</div>
+          <div class="autonomia-col-text">Envolve prazo, prioridade, entrega técnica, ajuste de expectativa ou risco moderado</div>
+        </div>
+        <div>
+          <div class="autonomia-col-label">O que o CS faz</div>
+          <div class="autonomia-col-text">Organiza contexto, rascunha resposta e valida com o Gestor antes de responder</div>
+        </div>
+      </div>
+      <div class="autonomia-row red">
+        <div>
+          <span class="pill red"><span class="pill-dot"></span>Escala já</span>
+        </div>
+        <div>
+          <div class="autonomia-col-label">Quando se aplica</div>
+          <div class="autonomia-col-text">Ameaça de cancelamento, crise de relacionamento, problema financeiro ou decisão estratégica</div>
+        </div>
+        <div>
+          <div class="autonomia-col-label">O que o CS faz</div>
+          <div class="autonomia-col-text">Escala para Gestão ou Diretoria antes de qualquer resposta definitiva ao cliente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-lavender" style="margin-top: 20px;">
+      <p>Em situações críticas, o silêncio momentâneo é preferível a uma resposta precipitada.</p>
+    </div>
+  </section>
+
+  <!-- 07 · Indicadores -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">07</div>
+      <div class="section-title-wrap">
+        <div class="section-label">O que a liderança acompanha</div>
+        <h2 class="section-title">Indicadores</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="section-intro">Metas e frequências são definidas pela gestão e ajustadas conforme a operação evolui.</p>
+
+    <div class="indicadores-grid">
+      <div>
+        <div class="ind-group-head">Resultado e Relacionamento</div>
+        <div class="ind-item">
+          <div class="ind-name">NPS e satisfação</div>
+          <div class="ind-desc">Percepção geral do cliente sobre a Athena</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Saúde da carteira</div>
+          <div class="ind-desc">Estado geral dos clientes ativos</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Risco de churn</div>
+          <div class="ind-desc">Clientes com sinais de insatisfação ou cancelamento iminente</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Retenção</div>
+          <div class="ind-desc">Manutenção da base de clientes ativa</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Percepção de valor</div>
+          <div class="ind-desc">Quanto o cliente enxerga resultado no serviço</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Oportunidades identificadas</div>
+          <div class="ind-desc">Expansões, indicações e reviews registrados e repassados</div>
+        </div>
+      </div>
+      <div>
+        <div class="ind-group-head">Processo e Organização</div>
+        <div class="ind-item">
+          <div class="ind-name">Qualidade do atendimento</div>
+          <div class="ind-desc">Tom, clareza e resolução nas comunicações</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Agilidade de retorno</div>
+          <div class="ind-desc">Tempo de resposta ao cliente</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Demandas sem acompanhamento</div>
+          <div class="ind-desc">Volume de solicitações sem atualização ativa</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Atualização da carteira</div>
+          <div class="ind-desc">Consistência dos registros no ClickUp</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Registro de reuniões</div>
+          <div class="ind-desc">Atas e devolutivas documentadas</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-name">Checkpoints realizados</div>
+          <div class="ind-desc">Frequência de contatos estratégicos na jornada</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · Comportamentos -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">08</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Postura e atitude</div>
+        <h2 class="section-title">Comportamentos Esperados</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="comportamentos-grid">
+      <div class="comp-card">
+        <div class="comp-name">Senso de dono</div>
+        <div class="comp-body">Não espera ser cobrado; conduz a carteira com autonomia e iniciativa</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Organização</div>
+        <div class="comp-body">Mantém demandas, registros e carteira atualizados sem acúmulo</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Disciplina de registro</div>
+        <div class="comp-body">O que não está no ClickUp não existe como processo</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Comunicação clara</div>
+        <div class="comp-body">Responde com contexto, ação e próximo passo definido</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Senso de urgência</div>
+        <div class="comp-body">Prioriza o que tem cliente esperando</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Proatividade</div>
+        <div class="comp-body">Antecipa riscos e comunica antes de ser perguntado</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Empatia com o cliente</div>
+        <div class="comp-body">Ouve, entende o contexto e age com cuidado</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Firmeza com a operação</div>
+        <div class="comp-body">Cobra prazos e retornos com clareza, sem gerar atrito</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Leitura de contexto</div>
+        <div class="comp-body">Identifica o problema real por trás da solicitação antes de agir</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Maturidade para escalar</div>
+        <div class="comp-body">Reconhece quando ultrapassa sua autonomia e age no momento certo</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Responsabilidade com a experiência</div>
+        <div class="comp-body">Trata cada cliente como se a retenção dependesse daquele retorno</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Domínio técnico básico</div>
+        <div class="comp-body">Conhece Meta Ads, Google LSA e CRM o suficiente para conduzir conversas com credibilidade</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 · Desempenho -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">09</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Como o cargo é avaliado</div>
+        <h2 class="section-title">Critérios de Desempenho</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="desempenho-grid">
+      <div class="desemp-card positivo">
+        <div class="desemp-label">Sinais de bom desempenho</div>
+        <ul class="desemp-list">
+          <li>Clientes sabem o que está acontecendo e qual é o próximo passo</li>
+          <li>Demandas têm responsável, prazo e acompanhamento definidos</li>
+          <li>Registros no ClickUp estão atualizados e auditáveis</li>
+          <li>Riscos são identificados antes de virarem cancelamento</li>
+          <li>Comunicação interna é objetiva e com contexto</li>
+          <li>Gestão tem visibilidade clara sobre o estado da carteira</li>
+          <li>Cliente percebe cuidado, presença e profissionalismo</li>
+          <li>Oportunidades são identificadas e repassadas no momento certo</li>
+        </ul>
+      </div>
+      <div class="desemp-card negativo">
+        <div class="desemp-label">Sinais de desalinhamento</div>
+        <ul class="desemp-list">
+          <li>Cliente sem retorno aguardando atualização</li>
+          <li>Demanda registrada sem responsável ou prazo definido</li>
+          <li>Informação perdida por falta de registro</li>
+          <li>Promessa feita ao cliente sem validação interna</li>
+          <li>Ausência de atualização no ClickUp</li>
+          <li>Postura passiva — aguardar em vez de antecipar</li>
+          <li>Escalonamento tardio quando a situação já virou crise</li>
+          <li>Dependência de cobrança da gestão para conduzir a carteira</li>
+          <li>Confusão entre acompanhar a execução e executar tecnicamente</li>
+          <li>Falta de clareza para a gestão sobre o estado da carteira</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Validação -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <div class="section-title-wrap">
+        <div class="section-label">Revisão editorial</div>
+        <h2 class="section-title">Pontos para Validação</h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="validacao-box">
+      <div class="validacao-title">⚑ Requer revisão humana antes de publicar</div>
+      <div class="validacao-intro">Inconsistências identificadas durante a reformulação. Não foram alteradas — apenas sinalizadas.</div>
+      <div class="validacao-items">
+        <div class="validacao-item">
+          <div class="validacao-num">1</div>
+          <div class="validacao-text">
+            <strong>Seção de "Pontos de Atenção" aparecia duas vezes no original</strong>
+            <span>Os dois blocos eram quase idênticos, com 2 itens extras na segunda versão. A versão reformulada os unificou. Confirmar se havia intenção de mantê-los separados.</span>
+          </div>
+        </div>
+        <div class="validacao-item">
+          <div class="validacao-num">2</div>
+          <div class="validacao-text">
+            <strong>Metas numéricas dos indicadores não estão definidas</strong>
+            <span>O documento menciona que metas são "definidas pela gestão", mas sem valores de referência. Adicionar benchmarks quando disponíveis.</span>
+          </div>
+        </div>
+        <div class="validacao-item">
+          <div class="validacao-num">3</div>
+          <div class="validacao-text">
+            <strong>Exemplos práticos de autonomia ausentes</strong>
+            <span>A tabela usa categorias descritivas. Exemplos concretos por tipo de situação ou canal aumentariam a clareza operacional para o time.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /body-wrap -->
+
+<!-- ═══ CLOSING ═══ -->
+<section class="closing">
+  <div>
+    <div class="closing-label">Princípio Central</div>
+    <h2 class="closing-title">
+      Garanta que<br>
+      <span>nada fique solto.</span>
+    </h2>
+    <p class="closing-body">
+      A experiência do cliente, a clareza da operação e a saúde da carteira são responsabilidade do CS. Tudo que acontece na jornada do cliente passa pela sua organização, acompanhamento e capacidade de manter as coisas em movimento.
+    </p>
+  </div>
+  <div>
+    <p class="closing-quote">
+      "Você não precisa executar tudo. Mas precisa garantir que nada fique solto."
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-brand">Athena Growth Marketing</div>
+  <div class="footer-info">Descritivo de Cargo — Customer Success · v2.0 · 2026 · Uso Interno</div>
+</footer>
+
+</body>
+</html>
