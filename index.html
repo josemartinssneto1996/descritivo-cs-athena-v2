@@ -4,796 +4,883 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customer Success — Athena</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ─────────────────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────────────────── */
     :root {
-      --ink:        #090909;
-      --ink-soft:   #111111;
-      --lavender:   #E9D8FE;
-      --lavender-2: #D4B8FC;
-      --lavender-3: #7C4DCA;
-      --white:      #FAFAFA;
-      --grey-1:     #F2F0F7;
-      --grey-2:     #E0DCEB;
-      --grey-3:     #B0A8C4;
-      --grey-4:     #6B6480;
-      --positive:   #2D9E6B;
-      --danger:     #C8382B;
-      --amber:      #C27B1A;
+      --ink:          #090909;
+      --ink-mid:      #333333;
+      --ink-soft:     #555555;
+      --ink-muted:    #999999;
+      --white:        #FFFFFF;
+      --surface:      #F9F9F9;
+      --border:       #E4E4E4;
+      --border-mid:   #CCCCCC;
+
+      /* Lavanda — único acento, usado com parcimônia */
+      --accent:       #E9D8FE;
+      --accent-mid:   #C4A0F5;
+      --accent-text:  #6B21A8;
+
+      /* Status — apenas para indicadores funcionais */
+      --green:        #166534;
+      --green-bg:     #F0FDF4;
+      --green-border: #BBF7D0;
+      --red:          #991B1B;
+      --red-bg:       #FFF5F5;
+      --red-border:   #FECACA;
+      --amber:        #92400E;
+      --amber-bg:     #FFFBEB;
+      --amber-border: #FDE68A;
+
+      /* Tipo */
+      --font-display: 'Raleway', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      /* Escala */
+      --r-sm:   6px;
+      --r-md:   10px;
+      --r-lg:   14px;
     }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: #F7F4FD;
+      font-family: var(--font-body);
+      background: var(--white);
       color: var(--ink);
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ═══════════════════════════════════════
+    /* ─────────────────────────────────────────────────────
        COVER
-    ═══════════════════════════════════════ */
+    ───────────────────────────────────────────────────── */
     .cover {
       background: var(--ink);
       color: var(--white);
       min-height: 100vh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      padding: 64px 72px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cover::before {
-      content: '';
-      position: absolute;
-      top: -200px; right: -200px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(233,216,254,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cover::after {
-      content: '';
-      position: absolute;
-      bottom: -100px; left: -100px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(124,77,202,0.12) 0%, transparent 70%);
-      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      padding: 56px 80px;
     }
 
     .cover-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      margin-bottom: auto;
     }
 
     .cover-logo {
-      height: 36px;
+      height: 32px;
       width: auto;
-      display: block;
       filter: brightness(0) invert(1);
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
-    .cover-brand {
-      font-family: 'Raleway', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--lavender);
-    }
-
-    .cover-tag {
+    .cover-badge {
+      font-family: var(--font-body);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--grey-4);
+      letter-spacing: 0.06em;
+      color: #666;
       border: 1px solid #2a2a2a;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 99px;
     }
 
-    .cover-center {
-      padding: 80px 0 40px;
+    .cover-body {
+      padding: 80px 0 64px;
     }
 
-    .cover-eyebrow {
+    .cover-label {
+      font-family: var(--font-body);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--lavender-3);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .cover-eyebrow::before {
-      content: '';
-      width: 32px; height: 1px;
-      background: var(--lavender-3);
+      color: var(--accent-mid);
+      margin-bottom: 20px;
     }
 
     .cover-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: clamp(52px, 8vw, 96px);
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 112px);
       font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
       color: var(--white);
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
 
-    .cover-title span {
-      color: var(--lavender);
+    .cover-title em {
       display: block;
+      font-style: normal;
+      color: var(--accent);
     }
 
     .cover-quote {
-      max-width: 520px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 18px;
-      font-weight: 300;
+      max-width: 480px;
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 400;
       font-style: italic;
-      color: var(--grey-3);
-      line-height: 1.5;
-      border-left: 2px solid var(--lavender-3);
-      padding-left: 20px;
+      color: #888;
+      line-height: 1.55;
     }
 
-    .cover-bottom {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
+    .cover-footer {
       border-top: 1px solid #1e1e1e;
-      padding-top: 32px;
+      padding-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      justify-content: start;
+      gap: 0;
     }
 
-    .cover-meta-item {}
-    .cover-meta-label {
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--grey-4);
-      margin-bottom: 4px;
+    .cover-meta {
+      padding-right: 40px;
     }
+
+    .cover-meta:not(:last-child) {
+      border-right: 1px solid #1e1e1e;
+      margin-right: 40px;
+    }
+
+    .cover-meta-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 3px;
+    }
+
     .cover-meta-value {
       font-size: 13px;
       font-weight: 500;
-      color: var(--grey-2);
-    }
-
-    /* ═══════════════════════════════════════
-       BODY LAYOUT
-    ═══════════════════════════════════════ */
-    .body-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 72px;
+      color: #aaa;
     }
 
     @media (max-width: 768px) {
       .cover { padding: 40px 28px; }
-      .body-wrap { padding: 60px 24px; }
-      .cover-bottom { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .cover-title { font-size: 52px; }
+      .cover-footer { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .cover-meta:not(:last-child) { border-right: none; margin-right: 0; padding-right: 0; }
     }
 
-    /* ═══════════════════════════════════════
-       SECTION BLOCK
-    ═══════════════════════════════════════ */
+    /* ─────────────────────────────────────────────────────
+       DOCUMENT BODY
+    ───────────────────────────────────────────────────── */
+    .doc-body {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 96px 80px 120px;
+    }
+
+    @media (max-width: 768px) {
+      .doc-body { padding: 60px 24px 80px; }
+    }
+
+    /* ─────────────────────────────────────────────────────
+       SECTION
+    ───────────────────────────────────────────────────── */
     .section {
-      margin-bottom: 96px;
+      margin-bottom: 88px;
     }
 
-    .section-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 48px;
+    .section-head {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-number {
-      font-family: 'Raleway', sans-serif;
-      font-size: 13px;
+    .section-num {
+      font-family: var(--font-display);
+      font-size: 11px;
       font-weight: 800;
-      color: var(--lavender-3);
-      min-width: 28px;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
       padding-top: 6px;
     }
 
-    .section-title-wrap {}
+    .section-title-block {}
 
-    .section-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
+    .section-kicker {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--grey-3);
+      color: var(--ink-muted);
       margin-bottom: 4px;
     }
 
     .section-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: 32px;
+      font-family: var(--font-display);
+      font-size: 28px;
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
     }
 
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--grey-2);
-      margin-top: 22px;
+    /* ─────────────────────────────────────────────────────
+       TEXT
+    ───────────────────────────────────────────────────── */
+    .body-text {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      max-width: 640px;
     }
 
-    /* ═══════════════════════════════════════
-       INTRO SECTION (Objetivo)
-    ═══════════════════════════════════════ */
-    .intro-layout {
+    .body-text strong { color: var(--ink); font-weight: 600; }
+
+    /* ─────────────────────────────────────────────────────
+       CALLOUT
+    ───────────────────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--accent-mid);
+      background: #FDFBFF;
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 18px 24px;
+      margin: 28px 0;
+    }
+
+    .callout p {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    /* ─────────────────────────────────────────────────────
+       FRENTES (3 cards do objetivo)
+    ───────────────────────────────────────────────────── */
+    .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 48px;
       align-items: start;
     }
 
-    @media (max-width: 768px) {
-      .intro-layout { grid-template-columns: 1fr; gap: 40px; }
+    @media (max-width: 640px) {
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
     }
 
-    .intro-body {
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--grey-4);
-    }
-
-    .intro-body strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    /* ═══════════════════════════════════════
-       FRENTES — 3 cards grandes
-    ═══════════════════════════════════════ */
     .frentes {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
     }
 
-    .frente-card {
-      background: var(--ink);
-      color: var(--white);
-      border-radius: 4px;
-      padding: 24px 28px;
+    .frente-item {
+      padding: 20px 24px;
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: flex-start;
     }
 
-    .frente-card:first-child { border-radius: 12px 12px 4px 4px; }
-    .frente-card:last-child  { border-radius: 4px 4px 12px 12px; }
-
-    .frente-icon {
-      font-size: 20px;
-      line-height: 1;
-      margin-top: 2px;
+    .frente-item + .frente-item {
+      border-top: 1px solid var(--border);
     }
 
-    .frente-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--lavender);
-      margin-bottom: 4px;
+    .frente-marker {
+      width: 28px;
+      height: 28px;
+      background: var(--ink);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
-    .frente-body {
+    .frente-marker svg {
+      width: 13px; height: 13px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .frente-name {
+      font-family: var(--font-display);
       font-size: 13px;
-      color: #a0a0a0;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 3px;
+      letter-spacing: 0.01em;
+    }
+
+    .frente-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
       line-height: 1.5;
     }
 
-    /* ═══════════════════════════════════════
-       CAMADAS — 3 colunas horizontais
-    ═══════════════════════════════════════ */
-    .camadas-grid {
+    /* ─────────────────────────────────────────────────────
+       CAMADAS (3 colunas)
+    ───────────────────────────────────────────────────── */
+    .camadas {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
     }
 
     @media (max-width: 640px) {
-      .camadas-grid { grid-template-columns: 1fr; }
+      .camadas { grid-template-columns: 1fr; }
     }
 
-    .camada-card {
-      padding: 32px 28px;
-      background: #EEE8FB;
-      border-radius: 4px;
+    .camada {
+      padding: 28px 24px;
     }
 
-    .camada-card:first-child { border-radius: 12px 4px 4px 12px; }
-    .camada-card:last-child  { border-radius: 4px 12px 12px 4px; }
+    .camada + .camada {
+      border-left: 1px solid var(--border);
+    }
 
-    .camada-num {
-      font-family: 'Raleway', sans-serif;
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--lavender-2);
-      line-height: 1;
+    @media (max-width: 640px) {
+      .camada + .camada { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    .camada-index {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
       margin-bottom: 16px;
     }
 
-    .camada-title {
-      font-family: 'Raleway', sans-serif;
+    .camada-name {
+      font-family: var(--font-display);
       font-size: 16px;
       font-weight: 800;
       color: var(--ink);
       margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
 
-    .camada-body {
+    .camada-desc {
       font-size: 13px;
-      color: var(--grey-4);
+      color: var(--ink-soft);
       line-height: 1.55;
     }
 
-    /* ═══════════════════════════════════════
-       RESPONSABILIDADES — sub-seções
-    ═══════════════════════════════════════ */
-    .resp-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px 64px;
-    }
-
-    @media (max-width: 640px) {
-      .resp-grid { grid-template-columns: 1fr; gap: 36px; }
-    }
-
-    .resp-group-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--lavender-3);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--lavender);
-    }
-
-    .resp-list {
+    /* ─────────────────────────────────────────────────────
+       LISTA SIMPLES
+    ───────────────────────────────────────────────────── */
+    .clean-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
 
-    .resp-list li {
-      font-size: 13.5px;
-      color: var(--grey-4);
+    .clean-list li {
+      font-size: 14px;
+      color: var(--ink-soft);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
       padding-left: 16px;
       position: relative;
       line-height: 1.5;
     }
 
-    .resp-list li::before {
-      content: '—';
+    .clean-list li:last-child { border-bottom: none; }
+
+    .clean-list li::before {
+      content: '';
       position: absolute;
       left: 0;
-      color: var(--lavender-3);
-      font-weight: 600;
+      top: 18px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-mid);
     }
 
-    /* ═══════════════════════════════════════
-       HIGHLIGHT CALLOUT
-    ═══════════════════════════════════════ */
-    .callout {
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin: 32px 0;
-    }
-
-    .callout-lavender {
-      background: rgba(124,77,202,0.07);
-      border-left: 4px solid var(--lavender-3);
-    }
-
-    .callout-ink {
-      background: var(--ink);
-      color: var(--white);
-    }
-
-    .callout p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      font-style: italic;
-      line-height: 1.6;
-    }
-
-    .callout-lavender p { color: var(--ink); }
-    .callout-ink p { color: var(--lavender); }
-
-    /* ═══════════════════════════════════════
-       LIMITES — negativo
-    ═══════════════════════════════════════ */
-    .limites-wrap {
-      background: var(--ink);
-      border-radius: 16px;
-      padding: 48px;
+    /* ─────────────────────────────────────────────────────
+       RESPONSABILIDADES 4-grid
+    ───────────────────────────────────────────────────── */
+    .resp-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
     }
 
     @media (max-width: 640px) {
-      .limites-wrap { grid-template-columns: 1fr; padding: 32px; }
+      .resp-grid { grid-template-columns: 1fr; }
     }
 
-    .limites-label {
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .limites-label.pode { color: var(--positive); }
-    .limites-label.nao  { color: #eb5757; }
-
-    .limites-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .limites-list li {
-      font-size: 13px;
-      padding-left: 18px;
-      position: relative;
-      line-height: 1.5;
-    }
-
-    .limites-list.pode li { color: #b0f0d0; }
-    .limites-list.nao  li { color: #f0b0b0; }
-
-    .limites-list li::before {
-      position: absolute; left: 0;
-      font-size: 14px; line-height: 1.4;
-    }
-
-    .limites-list.pode li::before { content: '↗'; color: #2D9E6B; }
-    .limites-list.nao  li::before { content: '✕'; color: #C8382B; font-size: 12px; top: 1px; }
-
-    /* ═══════════════════════════════════════
-       TABELA — áreas
-    ═══════════════════════════════════════ */
-    .table-section {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    thead tr {
-      border-bottom: 2px solid var(--ink);
-    }
-
-    th {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grey-4);
-      padding: 12px 16px 12px 0;
-      text-align: left;
-    }
-
-    th:first-child { min-width: 180px; }
-
-    td {
-      padding: 16px 16px 16px 0;
-      font-size: 13.5px;
-      color: var(--grey-4);
-      vertical-align: top;
-      border-bottom: 1px solid var(--grey-2);
-      line-height: 1.5;
-    }
-
-    td:first-child {
-      font-weight: 600;
-      color: var(--ink);
-      font-size: 13px;
-    }
-
-    tr:last-child td { border-bottom: none; }
-
-    /* ═══════════════════════════════════════
-       AUTONOMIA — 3 blocos com pill
-    ═══════════════════════════════════════ */
-    .autonomia-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .autonomia-row {
-      display: grid;
-      grid-template-columns: 160px 1fr 1fr;
-      gap: 24px;
-      background: #EEE8FB;
-      border-radius: 4px;
+    .resp-group {
       padding: 24px 28px;
-      align-items: start;
     }
 
-    .autonomia-row:first-child { border-radius: 12px 12px 4px 4px; }
-    .autonomia-row:last-child  { border-radius: 4px 4px 12px 12px; }
-
-    .autonomia-row.green { border-left: 4px solid var(--positive); }
-    .autonomia-row.amber { border-left: 4px solid var(--amber); }
-    .autonomia-row.red   { border-left: 4px solid var(--danger); }
+    .resp-group:nth-child(1) { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .resp-group:nth-child(2) { border-bottom: 1px solid var(--border); }
+    .resp-group:nth-child(3) { border-right: 1px solid var(--border); }
 
     @media (max-width: 640px) {
-      .autonomia-row { grid-template-columns: 1fr; gap: 12px; }
+      .resp-group:nth-child(1) { border-right: none; }
+      .resp-group:nth-child(3) { border-right: none; border-bottom: 1px solid var(--border); }
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .resp-label {
+      font-family: var(--font-display);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-weight: 800;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 99px;
+      color: var(--ink);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .pill-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
+    .resp-list {
+      list-style: none;
     }
 
-    .pill.green { background: rgba(45,158,107,.1); color: var(--positive); }
-    .pill.amber { background: rgba(194,123,26,.1); color: var(--amber); }
-    .pill.red   { background: rgba(200,56,43,.1);  color: var(--danger); }
-
-    .pill.green .pill-dot { background: var(--positive); }
-    .pill.amber .pill-dot { background: var(--amber); }
-    .pill.red   .pill-dot { background: var(--danger); }
-
-    .autonomia-col-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grey-3);
-      margin-bottom: 6px;
-    }
-
-    .autonomia-col-text {
+    .resp-list li {
       font-size: 13px;
-      color: var(--grey-4);
-      line-height: 1.5;
+      color: var(--ink-soft);
+      padding: 7px 0;
+      border-bottom: 1px solid #F0F0F0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.45;
     }
 
-    /* ═══════════════════════════════════════
-       INDICADORES — dois grupos
-    ═══════════════════════════════════════ */
-    .indicadores-grid {
+    .resp-list li:last-child { border-bottom: none; }
+
+    .resp-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--ink-muted);
+    }
+
+    /* ─────────────────────────────────────────────────────
+       LIMITES (dark section)
+    ───────────────────────────────────────────────────── */
+    .limits-section {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 48px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 48px;
     }
 
     @media (max-width: 640px) {
-      .indicadores-grid { grid-template-columns: 1fr; }
+      .limits-section { grid-template-columns: 1fr; padding: 28px; gap: 32px; }
     }
 
-    .ind-group-head {
-      font-family: 'Raleway', sans-serif;
-      font-size: 11px;
+    .limits-col-label {
+      font-family: var(--font-display);
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .limits-col-label.can  { color: #6EE7B7; }
+    .limits-col-label.cant { color: #FCA5A5; }
+
+    .limits-list {
+      list-style: none;
+    }
+
+    .limits-list li {
+      font-size: 13px;
+      padding: 9px 0;
+      border-bottom: 1px solid #161616;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .limits-list li:last-child { border-bottom: none; }
+
+    .limits-list.can  li { color: #A7F3D0; }
+    .limits-list.cant li { color: #FECACA; }
+
+    .limits-list li::before {
+      position: absolute;
+      left: 0;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .limits-list.can  li::before { content: '↗'; color: #34D399; }
+    .limits-list.cant li::before { content: '×'; color: #F87171; }
+
+    /* ─────────────────────────────────────────────────────
+       TABELA padrão
+    ───────────────────────────────────────────────────── */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead tr { background: var(--surface); }
+
+    th {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding: 13px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 14px 20px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    td:first-child { font-weight: 600; color: var(--ink); }
+
+    tr:last-child td { border-bottom: none; }
+
+    tbody tr:hover { background: var(--surface); }
+
+    /* ─────────────────────────────────────────────────────
+       AUTONOMIA
+    ───────────────────────────────────────────────────── */
+    .autonomia-stack {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .autonomia-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .autonomia-row:last-child { border-bottom: none; }
+
+    @media (max-width: 640px) {
+      .autonomia-row { grid-template-columns: 1fr; }
+    }
+
+    .autonomia-level {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      border-right: 1px solid var(--border);
+    }
+
+    .autonomia-cell {
+      padding: 20px 24px;
+    }
+
+    .autonomia-cell + .autonomia-cell {
+      border-left: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .autonomia-level { border-right: none; border-bottom: 1px solid var(--border); }
+      .autonomia-cell + .autonomia-cell { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    .autonomia-cell-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .autonomia-cell-text {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 5px 10px;
+      border-radius: 99px;
+      border-width: 1px;
+      border-style: solid;
+    }
+
+    .status-pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+
+    .status-pill.green {
+      background: var(--green-bg);
+      color: var(--green);
+      border-color: var(--green-border);
+    }
+
+    .status-pill.green .status-pill-dot { background: var(--green); }
+
+    .status-pill.amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border-color: var(--amber-border);
+    }
+
+    .status-pill.amber .status-pill-dot { background: var(--amber); }
+
+    .status-pill.red {
+      background: var(--red-bg);
+      color: var(--red);
+      border-color: var(--red-border);
+    }
+
+    .status-pill.red .status-pill-dot { background: var(--red); }
+
+    /* ─────────────────────────────────────────────────────
+       INDICADORES
+    ───────────────────────────────────────────────────── */
+    .ind-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 640px) {
+      .ind-grid { grid-template-columns: 1fr; }
+    }
+
+    .ind-group-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--ink);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       padding-bottom: 12px;
       border-bottom: 2px solid var(--ink);
     }
 
-    .ind-item {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--grey-2);
+    .ind-row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .ind-item:last-child { border-bottom: none; }
+    .ind-row:last-child { border-bottom: none; }
 
     .ind-name {
       font-size: 13px;
       font-weight: 600;
       color: var(--ink);
+      margin-bottom: 2px;
     }
 
     .ind-desc {
       font-size: 12px;
-      color: var(--grey-4);
+      color: var(--ink-muted);
+      line-height: 1.4;
     }
 
-    /* ═══════════════════════════════════════
-       COMPORTAMENTOS — tabela estilizada
-    ═══════════════════════════════════════ */
-    .comportamentos-grid {
+    /* ─────────────────────────────────────────────────────
+       COMPORTAMENTOS
+    ───────────────────────────────────────────────────── */
+    .comp-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
     }
 
     @media (max-width: 640px) {
-      .comportamentos-grid { grid-template-columns: 1fr; }
+      .comp-grid { grid-template-columns: 1fr; }
     }
 
-    .comp-card {
-      background: #EEE8FB;
-      padding: 20px 24px;
-      border-radius: 4px;
+    .comp-item {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
     }
 
-    .comp-card:nth-child(1) { border-radius: 12px 4px 4px 4px; }
-    .comp-card:nth-child(2) { border-radius: 4px 12px 4px 4px; }
-    .comp-card:last-child   { border-radius: 4px 4px 12px 12px; }
-    .comp-card:nth-last-child(2) { border-radius: 4px 4px 4px 12px; }
+    .comp-item:nth-child(even) { border-right: none; }
+    .comp-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    @media (max-width: 640px) {
+      .comp-item { border-right: none; }
+      .comp-item:last-child { border-bottom: none; }
+      .comp-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .comp-item:nth-last-child(1) { border-bottom: none; }
+    }
 
     .comp-name {
-      font-family: 'Raleway', sans-serif;
+      font-family: var(--font-display);
       font-size: 13px;
       font-weight: 800;
       color: var(--ink);
       margin-bottom: 4px;
     }
 
-    .comp-body {
+    .comp-desc {
       font-size: 12.5px;
-      color: var(--grey-4);
+      color: var(--ink-soft);
       line-height: 1.5;
     }
 
-    /* ═══════════════════════════════════════
-       DESEMPENHO — dois blocos
-    ═══════════════════════════════════════ */
-    .desempenho-grid {
+    /* ─────────────────────────────────────────────────────
+       DESEMPENHO
+    ───────────────────────────────────────────────────── */
+    .perf-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 16px;
     }
 
     @media (max-width: 640px) {
-      .desempenho-grid { grid-template-columns: 1fr; }
+      .perf-grid { grid-template-columns: 1fr; }
     }
 
-    .desemp-card {
-      border-radius: 16px;
-      padding: 36px;
+    .perf-card {
+      border-radius: var(--r-lg);
+      border: 1px solid;
+      padding: 28px;
     }
 
-    .desemp-card.positivo {
-      background: #f0faf5;
-      border: 1px solid rgba(45,158,107,.2);
+    .perf-card.good {
+      border-color: var(--green-border);
+      background: var(--green-bg);
     }
 
-    .desemp-card.negativo {
-      background: #fdf2f0;
-      border: 1px solid rgba(200,56,43,.15);
+    .perf-card.bad {
+      border-color: var(--red-border);
+      background: var(--red-bg);
     }
 
-    .desemp-label {
-      font-family: 'Raleway', sans-serif;
+    .perf-label {
+      font-family: var(--font-display);
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .desemp-card.positivo .desemp-label { color: var(--positive); }
-    .desemp-card.negativo .desemp-label { color: var(--danger); }
+    .perf-card.good .perf-label { color: var(--green); }
+    .perf-card.bad  .perf-label { color: var(--red); }
 
-    .desemp-list {
+    .perf-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
     }
 
-    .desemp-list li {
+    .perf-list li {
       font-size: 13px;
-      padding-left: 20px;
+      padding: 8px 0;
+      padding-left: 18px;
       position: relative;
-      line-height: 1.5;
+      border-bottom: 1px solid;
+      line-height: 1.45;
     }
 
-    .desemp-card.positivo .desemp-list li { color: #1a5c3a; }
-    .desemp-card.negativo .desemp-list li { color: #7a1e15; }
+    .perf-list li:last-child { border-bottom: none; }
 
-    .desemp-card.positivo .desemp-list li::before { content: '✓'; position: absolute; left: 0; color: var(--positive); font-weight: 700; }
-    .desemp-card.negativo .desemp-list li::before { content: '!'; position: absolute; left: 0; color: var(--danger); font-weight: 700; font-size: 12px; }
+    .perf-card.good .perf-list li { color: #14532D; border-color: #D1FAE5; }
+    .perf-card.bad  .perf-list li { color: #7F1D1D; border-color: #FEE2E2; }
 
-    /* ═══════════════════════════════════════
+    .perf-card.good .perf-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: 11px; top: 9px; }
+    .perf-card.bad  .perf-list li::before { content: '!'; position: absolute; left: 0; color: var(--red);   font-weight: 700; font-size: 11px; top: 9px; }
+
+    /* ─────────────────────────────────────────────────────
        VALIDAÇÃO
-    ═══════════════════════════════════════ */
-    .validacao-box {
-      background: rgba(124,77,202,0.06);
-      border: 1px solid rgba(124,77,202,0.2);
-      border-top: 4px solid var(--lavender-3);
-      border-radius: 12px;
-      padding: 32px;
+    ───────────────────────────────────────────────────── */
+    .validation-box {
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent-mid);
+      border-radius: var(--r-lg);
+      padding: 28px;
     }
 
-    .validacao-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: 13px;
+    .validation-label {
+      font-family: var(--font-display);
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--lavender-3);
-      margin-bottom: 8px;
+      color: var(--accent-text);
+      margin-bottom: 6px;
     }
 
-    .validacao-intro {
+    .validation-intro {
       font-size: 13px;
-      color: var(--grey-4);
+      color: var(--ink-muted);
       margin-bottom: 24px;
     }
 
-    .validacao-items {
+    .validation-items {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    .validacao-item {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 16px;
-      align-items: start;
+    .validation-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
     }
 
-    .validacao-num {
-      width: 28px; height: 28px;
+    .validation-num {
+      width: 24px; height: 24px;
       border-radius: 50%;
-      background: var(--lavender-3);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
+      background: var(--accent);
+      color: var(--accent-text);
+      font-size: 11px;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
 
-    .validacao-text strong {
+    .validation-text strong {
       display: block;
       font-size: 13px;
       font-weight: 600;
@@ -801,19 +888,18 @@
       margin-bottom: 2px;
     }
 
-    .validacao-text span {
+    .validation-text span {
       font-size: 12.5px;
-      color: var(--grey-4);
+      color: var(--ink-muted);
       line-height: 1.5;
     }
 
-    /* ═══════════════════════════════════════
+    /* ─────────────────────────────────────────────────────
        CLOSING
-    ═══════════════════════════════════════ */
+    ───────────────────────────────────────────────────── */
     .closing {
       background: var(--ink);
-      color: var(--white);
-      padding: 96px 72px;
+      padding: 88px 80px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
@@ -821,66 +907,73 @@
     }
 
     @media (max-width: 768px) {
-      .closing { grid-template-columns: 1fr; gap: 48px; padding: 64px 28px; }
+      .closing { grid-template-columns: 1fr; gap: 40px; padding: 56px 28px; }
     }
 
-    .closing-label {
+    .closing-kicker {
       font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--lavender-3);
+      color: var(--accent-mid);
       margin-bottom: 16px;
     }
 
     .closing-title {
-      font-family: 'Raleway', sans-serif;
-      font-size: 36px;
+      font-family: var(--font-display);
+      font-size: 38px;
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
       color: var(--white);
     }
 
-    .closing-title span { color: var(--lavender); }
-
-    .closing-quote {
-      font-family: 'Raleway', sans-serif;
-      font-size: 22px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--lavender);
-      line-height: 1.5;
-      border-left: 2px solid var(--lavender-3);
-      padding-left: 24px;
+    .closing-title em {
+      font-style: normal;
+      color: var(--accent);
     }
 
     .closing-body {
       font-size: 14px;
-      color: var(--grey-4);
+      color: #777;
       line-height: 1.7;
       margin-top: 20px;
+      max-width: 380px;
     }
 
-    /* ═══════════════════════════════════════
+    .closing-quote {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      color: #888;
+      line-height: 1.55;
+      padding-left: 24px;
+      border-left: 2px solid var(--accent-mid);
+    }
+
+    /* ─────────────────────────────────────────────────────
        FOOTER
-    ═══════════════════════════════════════ */
+    ───────────────────────────────────────────────────── */
     .footer {
       background: #050505;
-      padding: 24px 72px;
+      padding: 24px 80px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
       flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid #111;
     }
 
-    .footer-brand {
-      font-family: 'Raleway', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--grey-4);
+    @media (max-width: 768px) {
+      .footer { padding: 20px 24px; }
+    }
+
+    .footer-logo {
+      height: 22px;
+      width: auto;
+      filter: brightness(0) invert(0.35);
     }
 
     .footer-info {
@@ -888,46 +981,34 @@
       color: #333;
     }
 
-    /* ═══════════════════════════════════════
-       DIVIDER
-    ═══════════════════════════════════════ */
-    .divider {
-      height: 1px;
-      background: var(--grey-2);
-      margin: 64px 0;
-    }
+    /* ─────────────────────────────────────────────────────
+       UTILITY
+    ───────────────────────────────────────────────────── */
+    .mt-8  { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-40 { margin-top: 40px; }
 
-    /* ═══════════════════════════════════════
-       SECTION INTRO TEXT
-    ═══════════════════════════════════════ */
-    .section-intro {
-      font-size: 15px;
-      color: var(--grey-4);
-      line-height: 1.7;
-      max-width: 640px;
-      margin-bottom: 40px;
-    }
-
-    .section-intro strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
   </style>
 </head>
 <body>
 
-<!-- ═══ COVER ═══ -->
+<!-- ══ COVER ══════════════════════════════════════════ -->
 <section class="cover">
   <div class="cover-top">
-    <img src="https://athenagrowthmarketing.com/wp-content/uploads/2026/05/logo-1.png" alt="Athena Growth Marketing" class="cover-logo" />
-    <div class="cover-tag">Uso Interno · v2.0 · 2026</div>
+    <img
+      src="https://athenagrowthmarketing.com/wp-content/uploads/2026/05/logo-1.png"
+      alt="Athena Growth Marketing"
+      class="cover-logo"
+    />
+    <span class="cover-badge">Uso Interno · v2.0 · 2026</span>
   </div>
 
-  <div class="cover-center">
-    <div class="cover-eyebrow">Descritivo de Cargo</div>
+  <div class="cover-body">
+    <div class="cover-label">Descritivo de Cargo</div>
     <h1 class="cover-title">
       Customer
-      <span>Success</span>
+      <em>Success</em>
     </h1>
     <p class="cover-quote">
       "Você não precisa executar tudo.<br>
@@ -935,69 +1016,75 @@
     </p>
   </div>
 
-  <div class="cover-bottom">
-    <div class="cover-meta-item">
+  <div class="cover-footer">
+    <div class="cover-meta">
       <div class="cover-meta-label">Cargo</div>
       <div class="cover-meta-value">CS / Analista de CS</div>
     </div>
-    <div class="cover-meta-item">
+    <div class="cover-meta">
       <div class="cover-meta-label">Área</div>
       <div class="cover-meta-value">Operação de Clientes</div>
     </div>
-    <div class="cover-meta-item">
+    <div class="cover-meta">
       <div class="cover-meta-label">Reporta-se a</div>
       <div class="cover-meta-value">Gestor de Projetos</div>
     </div>
-    <div class="cover-meta-item">
-      <div class="cover-meta-label">Escalonamento crítico</div>
+    <div class="cover-meta">
+      <div class="cover-meta-label">Escalonamento</div>
       <div class="cover-meta-value">Gestão · Diretoria</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ BODY ═══ -->
-<div class="body-wrap">
+<!-- ══ DOCUMENT BODY ══════════════════════════════════ -->
+<div class="doc-body">
 
   <!-- 01 · Objetivo -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">01</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Por que o cargo existe</div>
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Por que o cargo existe</div>
         <h2 class="section-title">Objetivo do Cargo</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="intro-layout">
+    <div class="two-col">
       <div>
-        <p class="intro-body">
+        <p class="body-text">
           Garantir acompanhamento claro durante toda a jornada do cliente — do onboarding à retenção. A responsabilidade central é <strong>proteger a experiência do cliente</strong>, assegurar que demandas avancem com responsável definido, manter a operação informada e garantir que nenhuma solicitação se perca entre cliente e equipe interna.
         </p>
-        <p class="intro-body" style="margin-top: 16px;">
-          O objetivo se desdobra em três frentes de atuação simultâneas:
+        <p class="body-text mt-16">
+          O objetivo se desdobra em três frentes:
         </p>
       </div>
+
       <div class="frentes">
-        <div class="frente-card">
-          <div class="frente-icon">↩</div>
+        <div class="frente-item">
+          <div class="frente-marker">
+            <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 12l3 3 5-5"/></svg>
+          </div>
           <div>
-            <div class="frente-title">Retenção</div>
-            <div class="frente-body">Identificar sinais de insatisfação antes que se tornem pedidos de cancelamento</div>
+            <div class="frente-name">Retenção</div>
+            <div class="frente-desc">Identificar sinais de insatisfação antes que se tornem pedidos de cancelamento</div>
           </div>
         </div>
-        <div class="frente-card">
-          <div class="frente-icon">↗</div>
+        <div class="frente-item">
+          <div class="frente-marker">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
           <div>
-            <div class="frente-title">Expansão</div>
-            <div class="frente-body">Localizar oportunidades de upsell, cross-sell e novos serviços na base ativa</div>
+            <div class="frente-name">Expansão</div>
+            <div class="frente-desc">Localizar oportunidades de upsell, cross-sell e novos serviços na base ativa</div>
           </div>
         </div>
-        <div class="frente-card">
-          <div class="frente-icon">◉</div>
+        <div class="frente-item">
+          <div class="frente-marker">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>
+          </div>
           <div>
-            <div class="frente-title">Indicação</div>
-            <div class="frente-body">Converter clientes satisfeitos em promotores — canal com menor custo e maior conversão</div>
+            <div class="frente-name">Indicação</div>
+            <div class="frente-desc">Converter clientes satisfeitos em promotores — canal com menor custo e maior conversão</div>
           </div>
         </div>
       </div>
@@ -1006,52 +1093,50 @@
 
   <!-- 02 · Papel -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">02</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Posicionamento na operação</div>
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Posicionamento na operação</div>
         <h2 class="section-title">O Papel do CS na Athena</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <p class="section-intro">
+    <p class="body-text">
       O CS é o <strong>ponto de conexão entre cliente, operação e gestão</strong> — não o executor técnico das entregas. Sua atuação protege quatro dimensões ao mesmo tempo: experiência do cliente, continuidade das demandas, clareza da operação e visibilidade da gestão.
     </p>
 
-    <div class="camadas-grid">
-      <div class="camada-card">
-        <div class="camada-num">01</div>
-        <div class="camada-title">Operacional</div>
-        <div class="camada-body">Responder bem, registrar tudo e garantir o andamento das demandas</div>
+    <div class="camadas mt-24">
+      <div class="camada">
+        <div class="camada-index">01 · CAMADA</div>
+        <div class="camada-name">Operacional</div>
+        <div class="camada-desc">Responder bem, registrar tudo e garantir o andamento das demandas</div>
       </div>
-      <div class="camada-card">
-        <div class="camada-num">02</div>
-        <div class="camada-title">Relacional</div>
-        <div class="camada-body">Criar proximidade, construir confiança e posicionar-se como parceiro</div>
+      <div class="camada">
+        <div class="camada-index">02 · CAMADA</div>
+        <div class="camada-name">Relacional</div>
+        <div class="camada-desc">Criar proximidade, construir confiança e posicionar-se como parceiro</div>
       </div>
-      <div class="camada-card">
-        <div class="camada-num">03</div>
-        <div class="camada-title">Estratégica</div>
-        <div class="camada-body">Visualizar a jornada completa, antecipar riscos e identificar oportunidades</div>
+      <div class="camada">
+        <div class="camada-index">03 · CAMADA</div>
+        <div class="camada-name">Estratégica</div>
+        <div class="camada-desc">Visualizar a jornada completa, antecipar riscos e identificar oportunidades</div>
       </div>
     </div>
   </section>
 
   <!-- 03 · Responsabilidades -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">03</div>
-      <div class="section-title-wrap">
-        <div class="section-label">O que cabe ao cargo</div>
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <div class="section-title-block">
+        <div class="section-kicker">O que cabe ao cargo</div>
         <h2 class="section-title">Responsabilidades</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
     <div class="resp-grid">
-      <div>
-        <div class="resp-group-title">Atendimento e Comunicação</div>
+      <div class="resp-group">
+        <div class="resp-label">Atendimento e Comunicação</div>
         <ul class="resp-list">
           <li>Ser o ponto principal de contato com clientes da carteira</li>
           <li>Conduzir comunicações por grupo, mensagem direta, reunião e ligação</li>
@@ -1059,16 +1144,16 @@
           <li>Atualizar o cliente sobre status, próximos passos e atrasos</li>
         </ul>
       </div>
-      <div>
-        <div class="resp-group-title">Gestão de Demandas</div>
+      <div class="resp-group">
+        <div class="resp-label">Gestão de Demandas</div>
         <ul class="resp-list">
           <li>Direcionar demandas para as áreas responsáveis com contexto claro</li>
           <li>Acompanhar o andamento até o retorno final ao cliente</li>
           <li>Manter o ClickUp atualizado como fonte única de registro</li>
         </ul>
       </div>
-      <div>
-        <div class="resp-group-title">Saúde da Carteira</div>
+      <div class="resp-group">
+        <div class="resp-label">Saúde da Carteira</div>
         <ul class="resp-list">
           <li>Realizar acompanhamento ativo da carteira de clientes</li>
           <li>Identificar sinais de insatisfação, risco ou baixa percepção de valor</li>
@@ -1078,8 +1163,8 @@
           <li>Acompanhar coleta e tratamento de NPS</li>
         </ul>
       </div>
-      <div>
-        <div class="resp-group-title">Crescimento e Oportunidades</div>
+      <div class="resp-group">
+        <div class="resp-label">Crescimento e Oportunidades</div>
         <ul class="resp-list">
           <li>Identificar e registrar oportunidades de expansão, indicação, review ou case</li>
           <li>Escalar para Gestor ou Diretoria quando necessário, com contexto completo</li>
@@ -1087,43 +1172,42 @@
       </div>
     </div>
 
-    <div class="callout callout-lavender" style="margin-top: 48px;">
+    <div class="callout mt-24">
       <p>"Encaminhar não é resolver. A demanda só está adequadamente acompanhada quando existe clareza de responsável, status atualizado, próximo passo definido e comunicação ao cliente."</p>
     </div>
   </section>
 
   <!-- 04 · Limites -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">04</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Escopo e fronteiras</div>
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Escopo e fronteiras</div>
         <h2 class="section-title">Limites da Função</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="limites-wrap">
+    <div class="limits-section">
       <div>
-        <div class="limites-label pode">O CS pode</div>
-        <ul class="limites-list pode">
-          <li>Acionar áreas responsáveis</li>
-          <li>Acompanhar e cobrar retorno</li>
-          <li>Organizar informações e contexto</li>
-          <li>Comunicar o cliente sobre andamento</li>
+        <div class="limits-col-label can">O CS pode</div>
+        <ul class="limits-list can">
+          <li>Acionar áreas responsáveis por demandas</li>
+          <li>Acompanhar e cobrar retorno das áreas</li>
+          <li>Organizar informações e contexto interno</li>
+          <li>Comunicar o cliente sobre andamento e prazos</li>
           <li>Sinalizar riscos e gargalos à gestão</li>
-          <li>Identificar e repassar oportunidades</li>
+          <li>Identificar e repassar oportunidades de expansão</li>
         </ul>
       </div>
       <div>
-        <div class="limites-label nao">O CS não é responsável por</div>
-        <ul class="limites-list nao">
+        <div class="limits-col-label cant">O CS não é responsável por</div>
+        <ul class="limits-list cant">
           <li>Executar campanhas de tráfego pago</li>
           <li>Criar peças de design ou materiais visuais</li>
           <li>Desenvolver ou manter páginas e landing pages</li>
           <li>Operar tecnicamente o CRM ou automações</li>
           <li>Tomar decisões comerciais sem validação</li>
-          <li>Prometer prazo, escopo ou preço sem alinhamento</li>
+          <li>Prometer prazo, escopo ou preço sem alinhamento prévio</li>
           <li>Aprovar estratégias, exceções ou contratos</li>
           <li>Assumir responsabilidade técnica de outra área</li>
         </ul>
@@ -1133,16 +1217,15 @@
 
   <!-- 05 · Relação com Áreas -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">05</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Interfaces internas</div>
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Interfaces internas</div>
         <h2 class="section-title">Relação com Outras Áreas</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="table-section">
+    <div class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -1184,211 +1267,141 @@
 
   <!-- 06 · Autonomia -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">06</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Tomada de decisão</div>
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Tomada de decisão</div>
         <h2 class="section-title">Autonomia e Escalonamento</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
     <div class="autonomia-stack">
-      <div class="autonomia-row green">
-        <div>
-          <span class="pill green"><span class="pill-dot"></span>Autônomo</span>
+      <div class="autonomia-row">
+        <div class="autonomia-level">
+          <span class="status-pill green">
+            <span class="status-pill-dot"></span>Autônomo
+          </span>
         </div>
-        <div>
-          <div class="autonomia-col-label">Quando se aplica</div>
-          <div class="autonomia-col-text">Baixo risco, sem impacto em prazo, escopo, performance ou relacionamento sensível</div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">Quando se aplica</div>
+          <div class="autonomia-cell-text">Baixo risco, sem impacto em prazo, escopo, performance ou relacionamento sensível</div>
         </div>
-        <div>
-          <div class="autonomia-col-label">O que o CS faz</div>
-          <div class="autonomia-col-text">Responde, conduz e encaminha sem validação prévia</div>
-        </div>
-      </div>
-      <div class="autonomia-row amber">
-        <div>
-          <span class="pill amber"><span class="pill-dot"></span>Valida antes</span>
-        </div>
-        <div>
-          <div class="autonomia-col-label">Quando se aplica</div>
-          <div class="autonomia-col-text">Envolve prazo, prioridade, entrega técnica, ajuste de expectativa ou risco moderado</div>
-        </div>
-        <div>
-          <div class="autonomia-col-label">O que o CS faz</div>
-          <div class="autonomia-col-text">Organiza contexto, rascunha resposta e valida com o Gestor antes de responder</div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">O que o CS faz</div>
+          <div class="autonomia-cell-text">Responde, conduz e encaminha sem validação prévia</div>
         </div>
       </div>
-      <div class="autonomia-row red">
-        <div>
-          <span class="pill red"><span class="pill-dot"></span>Escala já</span>
+      <div class="autonomia-row">
+        <div class="autonomia-level">
+          <span class="status-pill amber">
+            <span class="status-pill-dot"></span>Valida antes
+          </span>
         </div>
-        <div>
-          <div class="autonomia-col-label">Quando se aplica</div>
-          <div class="autonomia-col-text">Ameaça de cancelamento, crise de relacionamento, problema financeiro ou decisão estratégica</div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">Quando se aplica</div>
+          <div class="autonomia-cell-text">Envolve prazo, prioridade, entrega técnica, ajuste de expectativa ou risco moderado</div>
         </div>
-        <div>
-          <div class="autonomia-col-label">O que o CS faz</div>
-          <div class="autonomia-col-text">Escala para Gestão ou Diretoria antes de qualquer resposta definitiva ao cliente</div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">O que o CS faz</div>
+          <div class="autonomia-cell-text">Organiza contexto, rascunha resposta e valida com o Gestor antes de responder</div>
+        </div>
+      </div>
+      <div class="autonomia-row">
+        <div class="autonomia-level">
+          <span class="status-pill red">
+            <span class="status-pill-dot"></span>Escala já
+          </span>
+        </div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">Quando se aplica</div>
+          <div class="autonomia-cell-text">Ameaça de cancelamento, crise de relacionamento, problema financeiro ou decisão estratégica</div>
+        </div>
+        <div class="autonomia-cell">
+          <div class="autonomia-cell-label">O que o CS faz</div>
+          <div class="autonomia-cell-text">Escala para Gestão ou Diretoria antes de qualquer resposta definitiva ao cliente</div>
         </div>
       </div>
     </div>
 
-    <div class="callout callout-lavender" style="margin-top: 20px;">
+    <div class="callout mt-16">
       <p>Em situações críticas, o silêncio momentâneo é preferível a uma resposta precipitada.</p>
     </div>
   </section>
 
   <!-- 07 · Indicadores -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">07</div>
-      <div class="section-title-wrap">
-        <div class="section-label">O que a liderança acompanha</div>
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <div class="section-title-block">
+        <div class="section-kicker">O que a liderança acompanha</div>
         <h2 class="section-title">Indicadores</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <p class="section-intro">Metas e frequências são definidas pela gestão e ajustadas conforme a operação evolui.</p>
+    <p class="body-text">Metas e frequências são definidas pela gestão e ajustadas conforme a operação evolui.</p>
 
-    <div class="indicadores-grid">
+    <div class="ind-grid mt-24">
       <div>
-        <div class="ind-group-head">Resultado e Relacionamento</div>
-        <div class="ind-item">
-          <div class="ind-name">NPS e satisfação</div>
-          <div class="ind-desc">Percepção geral do cliente sobre a Athena</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Saúde da carteira</div>
-          <div class="ind-desc">Estado geral dos clientes ativos</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Risco de churn</div>
-          <div class="ind-desc">Clientes com sinais de insatisfação ou cancelamento iminente</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Retenção</div>
-          <div class="ind-desc">Manutenção da base de clientes ativa</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Percepção de valor</div>
-          <div class="ind-desc">Quanto o cliente enxerga resultado no serviço</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Oportunidades identificadas</div>
-          <div class="ind-desc">Expansões, indicações e reviews registrados e repassados</div>
-        </div>
+        <div class="ind-group-title">Resultado e Relacionamento</div>
+        <div class="ind-row"><div class="ind-name">NPS e satisfação</div><div class="ind-desc">Percepção geral do cliente sobre a Athena</div></div>
+        <div class="ind-row"><div class="ind-name">Saúde da carteira</div><div class="ind-desc">Estado geral dos clientes ativos</div></div>
+        <div class="ind-row"><div class="ind-name">Risco de churn</div><div class="ind-desc">Clientes com sinais de insatisfação ou cancelamento iminente</div></div>
+        <div class="ind-row"><div class="ind-name">Retenção</div><div class="ind-desc">Manutenção da base de clientes ativa</div></div>
+        <div class="ind-row"><div class="ind-name">Percepção de valor</div><div class="ind-desc">Quanto o cliente enxerga resultado no serviço</div></div>
+        <div class="ind-row"><div class="ind-name">Oportunidades identificadas</div><div class="ind-desc">Expansões, indicações e reviews registrados e repassados</div></div>
       </div>
       <div>
-        <div class="ind-group-head">Processo e Organização</div>
-        <div class="ind-item">
-          <div class="ind-name">Qualidade do atendimento</div>
-          <div class="ind-desc">Tom, clareza e resolução nas comunicações</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Agilidade de retorno</div>
-          <div class="ind-desc">Tempo de resposta ao cliente</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Demandas sem acompanhamento</div>
-          <div class="ind-desc">Volume de solicitações sem atualização ativa</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Atualização da carteira</div>
-          <div class="ind-desc">Consistência dos registros no ClickUp</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Registro de reuniões</div>
-          <div class="ind-desc">Atas e devolutivas documentadas</div>
-        </div>
-        <div class="ind-item">
-          <div class="ind-name">Checkpoints realizados</div>
-          <div class="ind-desc">Frequência de contatos estratégicos na jornada</div>
-        </div>
+        <div class="ind-group-title">Processo e Organização</div>
+        <div class="ind-row"><div class="ind-name">Qualidade do atendimento</div><div class="ind-desc">Tom, clareza e resolução nas comunicações</div></div>
+        <div class="ind-row"><div class="ind-name">Agilidade de retorno</div><div class="ind-desc">Tempo de resposta ao cliente</div></div>
+        <div class="ind-row"><div class="ind-name">Demandas sem acompanhamento</div><div class="ind-desc">Volume de solicitações sem atualização ativa</div></div>
+        <div class="ind-row"><div class="ind-name">Atualização da carteira</div><div class="ind-desc">Consistência dos registros no ClickUp</div></div>
+        <div class="ind-row"><div class="ind-name">Registro de reuniões</div><div class="ind-desc">Atas e devolutivas documentadas</div></div>
+        <div class="ind-row"><div class="ind-name">Checkpoints realizados</div><div class="ind-desc">Frequência de contatos estratégicos na jornada</div></div>
       </div>
     </div>
   </section>
 
   <!-- 08 · Comportamentos -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">08</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Postura e atitude</div>
+    <div class="section-head">
+      <span class="section-num">08</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Postura e atitude</div>
         <h2 class="section-title">Comportamentos Esperados</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="comportamentos-grid">
-      <div class="comp-card">
-        <div class="comp-name">Senso de dono</div>
-        <div class="comp-body">Não espera ser cobrado; conduz a carteira com autonomia e iniciativa</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Organização</div>
-        <div class="comp-body">Mantém demandas, registros e carteira atualizados sem acúmulo</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Disciplina de registro</div>
-        <div class="comp-body">O que não está no ClickUp não existe como processo</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Comunicação clara</div>
-        <div class="comp-body">Responde com contexto, ação e próximo passo definido</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Senso de urgência</div>
-        <div class="comp-body">Prioriza o que tem cliente esperando</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Proatividade</div>
-        <div class="comp-body">Antecipa riscos e comunica antes de ser perguntado</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Empatia com o cliente</div>
-        <div class="comp-body">Ouve, entende o contexto e age com cuidado</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Firmeza com a operação</div>
-        <div class="comp-body">Cobra prazos e retornos com clareza, sem gerar atrito</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Leitura de contexto</div>
-        <div class="comp-body">Identifica o problema real por trás da solicitação antes de agir</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Maturidade para escalar</div>
-        <div class="comp-body">Reconhece quando ultrapassa sua autonomia e age no momento certo</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Responsabilidade com a experiência</div>
-        <div class="comp-body">Trata cada cliente como se a retenção dependesse daquele retorno</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-name">Domínio técnico básico</div>
-        <div class="comp-body">Conhece Meta Ads, Google LSA e CRM o suficiente para conduzir conversas com credibilidade</div>
-      </div>
+    <div class="comp-grid">
+      <div class="comp-item"><div class="comp-name">Senso de dono</div><div class="comp-desc">Não espera ser cobrado; conduz a carteira com autonomia e iniciativa</div></div>
+      <div class="comp-item"><div class="comp-name">Organização</div><div class="comp-desc">Mantém demandas, registros e carteira atualizados sem acúmulo</div></div>
+      <div class="comp-item"><div class="comp-name">Disciplina de registro</div><div class="comp-desc">O que não está no ClickUp não existe como processo</div></div>
+      <div class="comp-item"><div class="comp-name">Comunicação clara</div><div class="comp-desc">Responde com contexto, ação e próximo passo definido</div></div>
+      <div class="comp-item"><div class="comp-name">Senso de urgência</div><div class="comp-desc">Prioriza o que tem cliente esperando</div></div>
+      <div class="comp-item"><div class="comp-name">Proatividade</div><div class="comp-desc">Antecipa riscos e comunica antes de ser perguntado</div></div>
+      <div class="comp-item"><div class="comp-name">Empatia com o cliente</div><div class="comp-desc">Ouve, entende o contexto e age com cuidado</div></div>
+      <div class="comp-item"><div class="comp-name">Firmeza com a operação</div><div class="comp-desc">Cobra prazos e retornos com clareza, sem gerar atrito</div></div>
+      <div class="comp-item"><div class="comp-name">Leitura de contexto</div><div class="comp-desc">Identifica o problema real por trás da solicitação antes de agir</div></div>
+      <div class="comp-item"><div class="comp-name">Maturidade para escalar</div><div class="comp-desc">Reconhece quando ultrapassa sua autonomia e age no momento certo</div></div>
+      <div class="comp-item"><div class="comp-name">Responsabilidade com a experiência</div><div class="comp-desc">Trata cada cliente como se a retenção dependesse daquele retorno</div></div>
+      <div class="comp-item"><div class="comp-name">Domínio técnico básico</div><div class="comp-desc">Conhece Meta Ads, Google LSA e CRM o suficiente para conduzir conversas com credibilidade</div></div>
     </div>
   </section>
 
   <!-- 09 · Desempenho -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">09</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Como o cargo é avaliado</div>
+    <div class="section-head">
+      <span class="section-num">09</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Como o cargo é avaliado</div>
         <h2 class="section-title">Critérios de Desempenho</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="desempenho-grid">
-      <div class="desemp-card positivo">
-        <div class="desemp-label">Sinais de bom desempenho</div>
-        <ul class="desemp-list">
+    <div class="perf-grid">
+      <div class="perf-card good">
+        <div class="perf-label">Sinais de bom desempenho</div>
+        <ul class="perf-list">
           <li>Clientes sabem o que está acontecendo e qual é o próximo passo</li>
           <li>Demandas têm responsável, prazo e acompanhamento definidos</li>
           <li>Registros no ClickUp estão atualizados e auditáveis</li>
@@ -1399,9 +1412,9 @@
           <li>Oportunidades são identificadas e repassadas no momento certo</li>
         </ul>
       </div>
-      <div class="desemp-card negativo">
-        <div class="desemp-label">Sinais de desalinhamento</div>
-        <ul class="desemp-list">
+      <div class="perf-card bad">
+        <div class="perf-label">Sinais de desalinhamento</div>
+        <ul class="perf-list">
           <li>Cliente sem retorno aguardando atualização</li>
           <li>Demanda registrada sem responsável ou prazo definido</li>
           <li>Informação perdida por falta de registro</li>
@@ -1419,53 +1432,52 @@
 
   <!-- 10 · Validação -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-number">10</div>
-      <div class="section-title-wrap">
-        <div class="section-label">Revisão editorial</div>
+    <div class="section-head">
+      <span class="section-num">10</span>
+      <div class="section-title-block">
+        <div class="section-kicker">Revisão editorial</div>
         <h2 class="section-title">Pontos para Validação</h2>
       </div>
-      <div class="section-rule"></div>
     </div>
 
-    <div class="validacao-box">
-      <div class="validacao-title">⚑ Requer revisão humana antes de publicar</div>
-      <div class="validacao-intro">Inconsistências identificadas durante a reformulação. Não foram alteradas — apenas sinalizadas.</div>
-      <div class="validacao-items">
-        <div class="validacao-item">
-          <div class="validacao-num">1</div>
-          <div class="validacao-text">
-            <strong>Seção de "Pontos de Atenção" aparecia duas vezes no original</strong>
-            <span>Os dois blocos eram quase idênticos, com 2 itens extras na segunda versão. A versão reformulada os unificou. Confirmar se havia intenção de mantê-los separados.</span>
+    <div class="validation-box">
+      <div class="validation-label">Requer revisão antes de publicar</div>
+      <div class="validation-intro">Inconsistências identificadas durante a reformulação — não foram alteradas, apenas sinalizadas.</div>
+      <div class="validation-items">
+        <div class="validation-item">
+          <div class="validation-num">1</div>
+          <div class="validation-text">
+            <strong>Seção duplicada de "Pontos de Atenção"</strong>
+            <span>O original continha dois blocos quase idênticos. A versão reformulada os unificou. Confirmar se havia intenção de mantê-los separados.</span>
           </div>
         </div>
-        <div class="validacao-item">
-          <div class="validacao-num">2</div>
-          <div class="validacao-text">
-            <strong>Metas numéricas dos indicadores não estão definidas</strong>
+        <div class="validation-item">
+          <div class="validation-num">2</div>
+          <div class="validation-text">
+            <strong>Metas numéricas dos indicadores ausentes</strong>
             <span>O documento menciona que metas são "definidas pela gestão", mas sem valores de referência. Adicionar benchmarks quando disponíveis.</span>
           </div>
         </div>
-        <div class="validacao-item">
-          <div class="validacao-num">3</div>
-          <div class="validacao-text">
+        <div class="validation-item">
+          <div class="validation-num">3</div>
+          <div class="validation-text">
             <strong>Exemplos práticos de autonomia ausentes</strong>
-            <span>A tabela usa categorias descritivas. Exemplos concretos por tipo de situação ou canal aumentariam a clareza operacional para o time.</span>
+            <span>A tabela usa categorias descritivas. Exemplos concretos por tipo de situação aumentariam a clareza operacional para o time.</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-</div><!-- /body-wrap -->
+</div><!-- /doc-body -->
 
-<!-- ═══ CLOSING ═══ -->
+<!-- ══ CLOSING ════════════════════════════════════════ -->
 <section class="closing">
   <div>
-    <div class="closing-label">Princípio Central</div>
+    <div class="closing-kicker">Princípio Central</div>
     <h2 class="closing-title">
       Garanta que<br>
-      <span>nada fique solto.</span>
+      <em>nada fique solto.</em>
     </h2>
     <p class="closing-body">
       A experiência do cliente, a clareza da operação e a saúde da carteira são responsabilidade do CS. Tudo que acontece na jornada do cliente passa pela sua organização, acompanhamento e capacidade de manter as coisas em movimento.
@@ -1478,10 +1490,14 @@
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
 <footer class="footer">
-  <img src="https://athenagrowthmarketing.com/wp-content/uploads/2026/05/logo-1.png" alt="Athena" style="height:24px;width:auto;filter:brightness(0) invert(0.4);" />
-  <div class="footer-info">Descritivo de Cargo — Customer Success · v2.0 · 2026 · Uso Interno</div>
+  <img
+    src="https://athenagrowthmarketing.com/wp-content/uploads/2026/05/logo-1.png"
+    alt="Athena"
+    class="footer-logo"
+  />
+  <span class="footer-info">Descritivo de Cargo — Customer Success · v2.0 · 2026 · Uso Interno</span>
 </footer>
 
 </body>
